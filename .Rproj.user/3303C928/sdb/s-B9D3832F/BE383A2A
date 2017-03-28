@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"長庚大學 大數據分析方法 作業三\"\noutput: github_document\n---\n\n\n    \n\n## 網站資料爬取\n```{r}\n\nlibrary(rvest)\nLOL_posts_list <- list()\nfor(i in 7082:7086){\nLOLurl<-paste(\"https://www.ptt.cc/bbs/LOL/index\",i,\".html\",sep = '')\nLOLContent<-read_html(LOLurl)\n\npost_Title <- LOLContent %>%\nhtml_nodes(\".title\") %>% \nhtml_text()\n\npost_PushNum <-LOLContent %>%\nhtml_nodes(\".nrec\")%>%\nhtml_text()\n\npost_Author<-LOLContent%>%\nhtml_nodes(\".author\")%>%\nhtml_text()\n\ndata<-data.frame(title=post_Title,PushNum=post_PushNum,Author=post_Author)\nLOL_posts_list[[i]] <- data\n}\nLOL_dataframe<- rbind(LOL_posts_list[[7082]],LOL_posts_list[[7083]],LOL_posts_list[[7084]],LOL_posts_list[[7085]],LOL_posts_list[[7086]])\n\n\n```\n\n## 爬蟲結果呈現\n```{r}\n\nknitr::kable(LOL_dataframe)\n```\n\n## 解釋爬蟲結果 \n```{r}\ndim(LOL_dataframe)\nnrow(LOL_dataframe)\nstr(LOL_dataframe)\n\n```\n\n共有3行，100列\n\n```{r}\ntable(LOL_dataframe[3])\n??table()\n```\n被刪文者最多文章。\n\nPTT LOL版常常被刪文\n",
+    "created" : 1490633081614.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3478209147",
+    "id" : "BE383A2A",
+    "lastKnownWriteTime" : 1490722017,
+    "last_content_update" : 1490722017845,
+    "path" : "~/GitHub/cguim-bigdata-hw3-b0344106/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
